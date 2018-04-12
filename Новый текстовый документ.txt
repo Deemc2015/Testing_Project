@@ -1,0 +1,53 @@
+ackage pomogatel.app;
+
+
+import org.junit.Test;
+import java.util.Date;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selenide.*;
+public class Rabotnik {
+   @Test
+    public  void registrationRabotnik(){
+        Date DateToday = new Date();
+        String loginRabotnik= "070443-3@rab.ru";
+        String passwordRabotnik ="123456";
+        String Server = "http://pmgt1.ru";
+        open(Server);
+        $(byText("Войти")).click();
+        $(byText("Еще не зарегистрированы?")).click();
+        $(byText("Ищу работу")).click();
+        $("#CyrillicLastName").sendKeys("ФамилияРаботника");
+        $("#CyrillicFirstName").sendKeys("ИмяРаботника");
+        $("#CyrillicMiddleName").sendKeys("ОтчествоРаботника");
+        $("#Email").sendKeys(loginRabotnik);
+        $("#Password").sendKeys(passwordRabotnik);
+        $("#CellPhone").sendKeys("7777777777");
+        $("#Region").selectOptionByValue("Moscow");
+        $("#RegistrationSource").selectOptionByValue("Search");
+        $(".btn-registration").click();
+        $("#BirthdayDay").sendKeys("6");
+        $("#BirthdayMonth").selectOptionByValue("1");
+        $("#BirthdayYear").selectOptionByValue("2000");
+        $("#Address").sendKeys("Россия, Московская область, Орехово-Зуево, улица Ленина, 48");
+        $(".label-info").shouldNot(visible);
+        $("#checkAddressButton").click();
+        $(".label-info").shouldBe(visible);
+        $("#Gender").selectOptionByValue("Female");
+        $("#Description").sendKeys("Будьте конкретны, приводите факты и цифры. \n" +
+                "Укажите возраст детей, с которыми работали, и обязанности. Например: «гуляла один раз в день, вечером забирала ребенка из садика, готовила еду двум детям, отводила на занятия…». Сформулируйте свои пожелания по графику или району работы. Выделите редкие факторы, например, если есть машина, водительские права, вы отлично готовите (какие блюда и какую кухню), владеете иностранным языком, имеете навыки оказания первой медицинской помощи и т.п");
+        $("#Experience").selectOptionByValue("OneYearExperience");
+        $("#HourlySalarySpanId").selectOptionByValue("1014");
+        $("#Education").selectOptionByValue("Higher");
+        $("#Inhabitancies_0").click();
+        $("#Schedule").selectOptionByValue("Fulltime");
+        $("#Citizenship").selectOptionByValue("Russia");
+        $(".btn-continue-gradient-medium").click();
+        $(byText("Продолжить")).click();
+        $(byText("Продолжить без фото")).click();
+        $(byText("Перейти к просмотру вакансий")).click();
+        sleep(5000);
+    }
+
+
+}
